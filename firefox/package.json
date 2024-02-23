@@ -9,7 +9,7 @@
     "keywords": [],
     "author": "Luke Needle",
     "devDependencies": {
-        "web-ext": "^4.0.0"
+        "web-ext": "^7.11.0"
     },
     "files": [
         "manifest.json",
