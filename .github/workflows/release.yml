@@ -21,14 +21,12 @@ jobs:
         run: npm install --global web-ext
 
       - name: Install Chrome dependencies
-        run: |
-          cd chrome
-          npm install
+        working-directory: ./chrome
+        run: npm install
 
       - name: Install Firefox dependencies
-        run: |
-          cd ../firefox
-          npm install
+        working-directory: ./firefox
+        run: npm install
 
       - name: Build Chrome Extension
         run: |
