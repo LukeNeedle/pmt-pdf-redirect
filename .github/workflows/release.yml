@@ -1,0 +1,95 @@
+name: Release Extensions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install web-ext
+        run: npm install --global web-ext
+
+      - name: Install Chrome dependencies
+        run: |
+          cd chrome
+          npm install
+
+      - name: Install Firefox dependencies
+        run: |
+          cd ../firefox
+          npm install
+
+      - name: Build Chrome Extension
+        run: |
+          cd chrome
+          npm run build
+
+      - name: Build Firefox Extension
+        run: |
+          cd firefox
+          web-ext build
+
+      - name: Check for version change
+        id: check_version
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const versionFile = fs.readFileSync('version.txt', 'utf8');
+            const version = versionFile.trim();
+            const releases = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            const latestRelease = releases.data[0];
+            if (latestRelease.tag_name === version) {
+              return false;
+            }
+            return {
+              result: true,
+              version: version
+            };
+
+      - name: Create Release
+        if: steps.check_version.outputs.result == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.check_version.outputs.version }}
+          release_name: Release v${{ steps.check_version.outputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Chrome Extension
+        if: steps.check_version.outputs.result == 'true'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./chrome/dist/extension.crx
+          asset_name: extension.crx
+          asset_content_type: application/octet-stream
+      
+      - name: Upload Firefox Extension
+        if: steps.check_version.outputs.result == 'true'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./firefox/web-ext-artifacts/extension.xpi
+          asset_name: extension.xpi
+          asset_content_type: application/octet-stream
