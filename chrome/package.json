@@ -15,9 +15,9 @@
     },
     "files": [
         "manifest.json",
-        "background.js",
-        "content.js",
-        "rules.json",
+        "src/background.js",
+        "src/content.js",
+        "src/rules.json",
         "icon.png"
     ]
 }
