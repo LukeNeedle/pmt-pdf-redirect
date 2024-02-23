@@ -8,7 +8,7 @@
         "declarativeNetRequest"
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "src/background.js"
     },
     "icons": {
         "48": "icon.png"
@@ -17,13 +17,13 @@
         "rule_resources": [{
             "id": "rules",
             "enabled": true,
-            "path": "rules.json"
+            "path": "src/rules.json"
         }]
     },
     "content_scripts": [
         {
             "matches": ["*://www.physicsandmathstutor.com/pdf-pages/*"],
-            "js": ["content.js"]
+            "js": ["src/content.js"]
         }
     ]
 }
