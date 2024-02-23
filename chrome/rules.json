@@ -1,0 +1,11 @@
+[
+    {
+        "id":  1,
+        "priority":  1,
+        "action": { "type": "allow" },
+        "condition": {
+        "urlFilter": "*://www.physicsandmathstutor.com/pdf-pages/*",
+        "resourceTypes": ["main_frame"]
+        }
+    }
+]

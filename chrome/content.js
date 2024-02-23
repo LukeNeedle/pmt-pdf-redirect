@@ -1,0 +1,1 @@
+chrome.runtime.sendMessage({redirectUrl: window.location.href});
