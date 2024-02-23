@@ -1,0 +1,23 @@
+{
+    "name": "pmt-pdf-redirector",
+    "version": "1.0.1",
+    "description": "This extension redirects you to the pdf file on Physics and Maths Tutor's website based on the pdf that you are currently viewing.",
+    "main": "background.js",
+    "scripts": {
+        "build": "webpack --mode production"
+    },
+    "keywords": [],
+    "author": "Luke Needle",
+    "devDependencies": {
+        "webpack": "^5.0.0",
+        "webpack-cli": "^4.0.0",
+        "chrome-extension-webpack-plugin": "^2.0.0"
+    },
+    "files": [
+        "manifest.json",
+        "background.js",
+        "content.js",
+        "rules.json",
+        "icon.png"
+    ]
+}
