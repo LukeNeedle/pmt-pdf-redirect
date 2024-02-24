@@ -10,7 +10,8 @@
     "keywords": [],
     "author": "Luke Needle",
     "devDependencies": {
-        "webpack": "^5.90.3"
+        "webpack": "^5.90.3",
+        "webpack-cli": "^4.9.1"
     },
     "files": [
         "manifest.json",
