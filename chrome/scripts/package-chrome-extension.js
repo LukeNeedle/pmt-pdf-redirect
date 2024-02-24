@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const version = fs.readFileSync(path.resolve(__dirname, '../version.txt'), 'utf8').trim();
+const version = fs.readFileSync(path.resolve(__dirname, '../../version.txt'), 'utf8').trim();
 
-const sourceDir = path.resolve(__dirname, '../chrome/');
-const targetDir = path.resolve(__dirname, '../chrome/dist/');
+const sourceDir = path.resolve(__dirname, '../');
+const targetDir = path.resolve(__dirname, '../dist/');
 
 // Ensure the target directory exists
 if (!fs.existsSync(targetDir)) {
