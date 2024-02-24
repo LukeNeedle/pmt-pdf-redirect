@@ -71,12 +71,9 @@ jobs:
               result: true,
               version: version
             };
-      
-      - name: Debug Check Version Output
-        run: |
-          echo "Check Version Output: ${{ steps.check_version.outputs.result }}"
 
       - name: Create Release
+        id: create_release
         if: fromJson(steps.check_version.outputs.result).result == true
         uses: actions/create-release@v1
         env:
