@@ -5,18 +5,21 @@ const version = fs.readFileSync(path.resolve(__dirname, '../../version.txt'), 'u
 const sourceDir = path.resolve(__dirname, '../');
 const targetDir = path.resolve(__dirname, '../dist/');
 
-const filesToCopy = [
-    'background.js',
-    'content.js',
-    'rules.json',
+const filesToCopyOne = [
     'icon.png',
     'manifest.json',
     'package.json',
     'webpack.config.js'
 ];
+const filesToCopyTwo = [
+    'background.js',
+    'content.js',
+    'rules.json'
+];
+
 
 // Function to copy a directory recursively
-function copySpecifiedFilesRecursively(source, target) {
+function copySpecifiedFilesRecursively(source, target, whichFilesToCopy) {
     if (!fs.existsSync(target)) {
         fs.mkdirSync(target, { recursive: true });
     }
@@ -30,19 +33,25 @@ function copySpecifiedFilesRecursively(source, target) {
         if (stat.isDirectory()) {
             // Recursively copy the directory, but only if it's 'src'
             if (file === 'src') {
-            copySpecifiedFilesRecursively(sourcePath, targetPath);
+            copySpecifiedFilesRecursively(sourcePath, targetPath, 2);
             }
         } else {
             // Copy the file only if it's in the list
-            if (filesToCopy.includes(file)) {
-                fs.copyFileSync(sourcePath, targetPath);
+            if (whichFilesToCopy == 1){
+                if (filesToCopyOne.includes(file)) {
+                    fs.copyFileSync(sourcePath, targetPath);
+                }
+            } else {
+                if (filesToCopyTwo.includes(file)) {
+                    fs.copyFileSync(sourcePath, targetPath);
+                }
             }
         }
     }
 }
 
 // Copy the contents of /src/ to /dist/src/
-copySpecifiedFilesRecursively(sourceDir, targetDir);
+copySpecifiedFilesRecursively(sourceDir, targetDir, 1);
 
 // Update the manifest version
 const manifestPath = path.join(targetDir, 'manifest.json');
