@@ -4,13 +4,13 @@
     "description": "This extension redirects you to the pdf file on Physics and Maths Tutor's website based on the pdf that you are currently viewing.",
     "main": "src/background.js",
     "scripts": {
-        "build": "webpack --mode production"
-    },
+        "build": "webpack --mode production && npm run package-chrome-extension",
+        "package-chrome-extension": "node ./scripts/package-chrome-extension.js"
+    },    
     "keywords": [],
     "author": "Luke Needle",
     "devDependencies": {
-        "webpack": "^1.13.1",
-        "chrome-extension-webpack-plugin": "^1.3.2"
+        "webpack": "^5.90.3"
     },
     "files": [
         "manifest.json",

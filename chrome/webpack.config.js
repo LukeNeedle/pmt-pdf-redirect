@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const ChromeExtensionWebpackPlugin = require('chrome-extension-webpack-plugin');
 const version = fs.readFileSync(path.resolve(__dirname, '../version.txt'), 'utf8').trim();
 
 module.exports = {
