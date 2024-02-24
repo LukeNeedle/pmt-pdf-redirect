@@ -33,6 +33,8 @@ jobs:
       - name: Build Chrome Extension
         run: |
           cd chrome
+          npm list webpack
+          npm list chrome-extension-webpack-plugin
           npm run build
 
       - name: Build Firefox Extension
