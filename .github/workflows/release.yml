@@ -27,7 +27,7 @@ jobs:
 
       - name: Install Firefox dependencies
         run: |
-          cd chrome
+          cd firefox
           npm install
 
       - name: Build Chrome Extension
