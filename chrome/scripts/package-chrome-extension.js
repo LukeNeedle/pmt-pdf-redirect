@@ -10,25 +10,36 @@ if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
 }
 
+const filesToCopy = [
+    'background.js',
+    'content.js',
+    'rules.json',
+    'icon.png',
+    'manifest.json',
+    'package.json',
+    'webpack.config.js'
+];
+
 // Function to copy a directory recursively
-function copyDirectoryRecursively(source, target) {
+function copySpecifiedFilesRecursively(source, target) {
     if (!fs.existsSync(target)) {
-        if (source != path.resolve(__dirname, '../dist/')){
-            fs.mkdirSync(target, { recursive: true });
-        }
+        fs.mkdirSync(target, { recursive: true });
     }
-    if (source != path.resolve(__dirname, '../dist/')){
-        const files = fs.readdirSync(source);
-        for (const file of files) {
-            const sourcePath = path.join(source, file);
-            const targetPath = path.join(target, file);
-            const stat = fs.statSync(sourcePath);
+
+    const files = fs.readdirSync(source);
+    for (const file of files) {
+        const sourcePath = path.join(source, file);
+        const targetPath = path.join(target, file);
+        const stat = fs.statSync(sourcePath);
         
-            if (stat.isDirectory()) {
-                // Recursively copy the directory
-                copyDirectoryRecursively(sourcePath, targetPath);
-            } else {
-                // Copy the file
+        if (stat.isDirectory()) {
+            // Recursively copy the directory, but only if it's 'src'
+            if (file === 'src') {
+            copySpecifiedFilesRecursively(sourcePath, targetPath);
+            }
+        } else {
+            // Copy the file only if it's in the list
+            if (filesToCopy.includes(file)) {
                 fs.copyFileSync(sourcePath, targetPath);
             }
         }
@@ -36,7 +47,7 @@ function copyDirectoryRecursively(source, target) {
 }
 
 // Copy the contents of /src/ to /dist/src/
-copyDirectoryRecursively(sourceDir, targetDir);
+copySpecifiedFilesRecursively(sourceDir, targetDir);
 
 // Update the manifest version
 const manifestPath = path.join(targetDir, 'manifest.json');
