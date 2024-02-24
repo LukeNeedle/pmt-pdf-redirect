@@ -33,7 +33,7 @@ function copyDirectoryRecursively(source, target) {
 }
 
 // Copy the contents of /src/ to /dist/src/
-copyDirectoryRecursively(srcDir, distSrcDir);
+copyDirectoryRecursively(sourceDir, targetDir);
 
 // Update the manifest version
 const manifestPath = path.join(targetDir, 'manifest.json');
