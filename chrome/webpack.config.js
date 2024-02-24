@@ -44,6 +44,6 @@ module.exports = {
                     "js": ["src/content.js"]
                 }
             ]
-        }),
+        })
     ]
 };
