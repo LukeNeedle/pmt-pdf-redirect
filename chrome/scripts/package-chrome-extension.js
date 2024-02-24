@@ -30,13 +30,9 @@ function copySpecifiedFilesRecursively(source, target, whichFilesToCopy) {
         const targetPath = path.join(target, file);
         const stat = fs.statSync(sourcePath);
         
-        if (stat.isDirectory()) {
-            // Recursively copy the directory, but only if it's 'src'
-            if (file === 'src') {
+        if (stat.isDirectory() & file === 'src') {
             copySpecifiedFilesRecursively(sourcePath, targetPath, 2);
-            }
-        } else {
-            // Copy the file only if it's in the list
+        } else if (!stat.isDirectory()){
             if (whichFilesToCopy == 1){
                 if (filesToCopyOne.includes(file)) {
                     fs.copyFileSync(sourcePath, targetPath);
@@ -50,7 +46,6 @@ function copySpecifiedFilesRecursively(source, target, whichFilesToCopy) {
     }
 }
 
-// Copy the contents of /src/ to /dist/src/
 copySpecifiedFilesRecursively(sourceDir, targetDir, 1);
 
 // Update the manifest version
