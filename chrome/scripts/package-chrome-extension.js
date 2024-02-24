@@ -15,7 +15,7 @@ function copyDirectoryRecursively(source, target) {
     if (!fs.existsSync(target)) {
         fs.mkdirSync(target, { recursive: true });
     }
-    if (not (source == path.resolve(__dirname, '../dist/'))){
+    if (source != path.resolve(__dirname, '../dist/')){
         const files = fs.readdirSync(source);
         for (const file of files) {
             const sourcePath = path.join(source, file);
