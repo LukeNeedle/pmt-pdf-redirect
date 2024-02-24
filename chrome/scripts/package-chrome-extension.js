@@ -13,7 +13,9 @@ if (!fs.existsSync(targetDir)) {
 // Function to copy a directory recursively
 function copyDirectoryRecursively(source, target) {
     if (!fs.existsSync(target)) {
-        fs.mkdirSync(target, { recursive: true });
+        if (source != path.resolve(__dirname, '../dist/')){
+            fs.mkdirSync(target, { recursive: true });
+        }
     }
     if (source != path.resolve(__dirname, '../dist/')){
         const files = fs.readdirSync(source);
