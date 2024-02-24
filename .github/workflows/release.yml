@@ -71,6 +71,10 @@ jobs:
               result: true,
               version: version
             };
+      
+      - name: debug
+        run: |
+            fs
 
       - name: Create Release
         id: create_release
