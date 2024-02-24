@@ -2,6 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const version = fs.readFileSync(path.resolve(__dirname, '../version.txt'), 'utf8').trim();
 
+const sourceDir = path.resolve(__dirname, '../chrome/dist');
+const targetDir = path.resolve(__dirname, '../chrome/dist/extension');
+
 module.exports = {
     entry: {
         background: './src/background.js',
