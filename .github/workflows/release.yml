@@ -71,7 +71,7 @@ jobs:
       
       - name: Debug Check Version Output
         run: |
-          echo "Check Version Output: ${{ steps.check_version.outputs.result.result }}"
+          echo "Check Version Output: ${{ steps.check_version.outputs.result }}"
 
       - name: Create Release
         if: steps.check_version.outputs.result == '{"result":true}'
