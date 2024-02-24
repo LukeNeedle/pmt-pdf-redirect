@@ -5,7 +5,7 @@
     "main": "src/background.js",
     "scripts": {
         "build": "webpack --mode production && npm run package-chrome-extension",
-        "package-chrome-extension": "node ./scripts/package-chrome-extension.js"
+        "package-chrome-extension": "node scripts/package-chrome-extension.js"
     },    
     "keywords": [],
     "author": "Luke Needle",
