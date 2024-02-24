@@ -30,4 +30,9 @@ const manifest = require(manifestPath);
 manifest.version = version;
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null,  2));
 
+// Package the extension
+const execSync = require('child_process').execSync;
+const packExtensionCommand = `chrome --pack-extension=${targetDir}`;
+execSync(packExtensionCommand, { stdio: 'inherit' });
+
 console.log(`Chrome extension packaged at ${targetDir}`);
