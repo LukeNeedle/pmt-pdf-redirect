@@ -72,14 +72,9 @@ jobs:
       - name: Debug Check Version Output
         run: |
           echo "Check Version Output: ${{ steps.check_version.outputs.result }}"
-        # id: debug
-        # uses: actions/github-script@v5
-        # with:
-        #   script: |
-        #     console.log("Check Version Output: ${{ steps.check_version.outputs.result }}");
 
       - name: Create Release
-        if: steps.check_version.outputs.result == true
+        if: steps.check_version.outputs.result == '{"result":true}'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -90,7 +85,7 @@ jobs:
           prerelease: false
 
       - name: Upload Chrome Extension
-        if: steps.check_version.outputs.result == true
+        if: steps.check_version.outputs.result == '{"result":true}'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -101,7 +96,7 @@ jobs:
           asset_content_type: application/octet-stream
       
       - name: Upload Firefox Extension
-        if: steps.check_version.outputs.result == true
+        if: steps.check_version.outputs.result == '{"result":true}'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
