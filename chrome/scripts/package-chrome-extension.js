@@ -10,19 +10,30 @@ if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
 }
 
-// Copy all files from dist to the extension directory
-fs.readdirSync(sourceDir).forEach(file => {
-    const sourcePath = path.join(sourceDir, file);
-    const targetPath = path.join(targetDir, file);
-    const stat = fs.statSync(sourcePath);
-
-    // Skip directories
-    if (stat.isDirectory()) {
-        return;
+// Function to copy a directory recursively
+function copyDirectoryRecursively(source, target) {
+    if (!fs.existsSync(target)) {
+        fs.mkdirSync(target, { recursive: true });
     }
+    
+    const files = fs.readdirSync(source);
+    for (const file of files) {
+        const sourcePath = path.join(source, file);
+        const targetPath = path.join(target, file);
+        const stat = fs.statSync(sourcePath);
+    
+        if (stat.isDirectory()) {
+            // Recursively copy the directory
+            copyDirectoryRecursively(sourcePath, targetPath);
+        } else {
+            // Copy the file
+            fs.copyFileSync(sourcePath, targetPath);
+        }
+    }
+}
 
-    fs.copyFileSync(sourcePath, targetPath);
-});
+// Copy the contents of /src/ to /dist/src/
+copyDirectoryRecursively(srcDir, distSrcDir);
 
 // Update the manifest version
 const manifestPath = path.join(targetDir, 'manifest.json');
