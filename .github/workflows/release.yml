@@ -77,9 +77,9 @@ jobs:
       
       - name: debug
         run: |
-          ls -la ./chrome/dist/
+          ls ./chrome/dist/
           echo "---"
-          ls -la ./chrome/dist/src
+          ls ./chrome/dist/src
 
       - name: Create Release
         id: create_release
