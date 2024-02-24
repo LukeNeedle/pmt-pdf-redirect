@@ -5,11 +5,6 @@ const version = fs.readFileSync(path.resolve(__dirname, '../../version.txt'), 'u
 const sourceDir = path.resolve(__dirname, '../');
 const targetDir = path.resolve(__dirname, '../dist/');
 
-// Ensure the target directory exists
-if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
-}
-
 const filesToCopy = [
     'background.js',
     'content.js',
