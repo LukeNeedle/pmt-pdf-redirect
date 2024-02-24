@@ -15,19 +15,20 @@ function copyDirectoryRecursively(source, target) {
     if (!fs.existsSync(target)) {
         fs.mkdirSync(target, { recursive: true });
     }
-    
-    const files = fs.readdirSync(source);
-    for (const file of files) {
-        const sourcePath = path.join(source, file);
-        const targetPath = path.join(target, file);
-        const stat = fs.statSync(sourcePath);
-    
-        if (stat.isDirectory()) {
-            // Recursively copy the directory
-            copyDirectoryRecursively(sourcePath, targetPath);
-        } else {
-            // Copy the file
-            fs.copyFileSync(sourcePath, targetPath);
+    if (not (source == path.resolve(__dirname, '../dist/'))){
+        const files = fs.readdirSync(source);
+        for (const file of files) {
+            const sourcePath = path.join(source, file);
+            const targetPath = path.join(target, file);
+            const stat = fs.statSync(sourcePath);
+        
+            if (stat.isDirectory()) {
+                // Recursively copy the directory
+                copyDirectoryRecursively(sourcePath, targetPath);
+            } else {
+                // Copy the file
+                fs.copyFileSync(sourcePath, targetPath);
+            }
         }
     }
 }
