@@ -12,9 +12,16 @@ if (!fs.existsSync(targetDir)) {
 
 // Copy all files from dist to the extension directory
 fs.readdirSync(sourceDir).forEach(file => {
-    if (file !== 'dist') { // Exclude the dist directory from being copied into itself
-        fs.copyFileSync(path.join(sourceDir, file), path.join(targetDir, file));
+    const sourcePath = path.join(sourceDir, file);
+    const targetPath = path.join(targetDir, file);
+    const stat = fs.statSync(sourcePath);
+
+    // Skip directories
+    if (stat.isDirectory()) {
+        return;
     }
+
+    fs.copyFileSync(sourcePath, targetPath);
 });
 
 // Update the manifest version
