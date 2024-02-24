@@ -9,7 +9,7 @@
         "*://www.physicsandmathstutor.com/pdf-pages/*"
     ],
     "background": {
-        "scripts": ["src/background.js"]
+        "scripts": ["background.js"]
     },
     "icons": {
         "48": "icon.png"
