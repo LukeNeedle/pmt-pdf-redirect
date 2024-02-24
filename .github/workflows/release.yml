@@ -58,7 +58,7 @@ jobs:
                 version: version
               };
             }
-            
+
             const latestRelease = releases.data[0];
             if (latestRelease.tag_name === version) {
               return false;
@@ -68,6 +68,15 @@ jobs:
               result: true,
               version: version
             };
+      
+      - name: Debug Check Version Output
+        run: |
+          echo "Check Version Output: ${{ steps.check_version.outputs.result }}"
+        # id: debug
+        # uses: actions/github-script@v5
+        # with:
+        #   script: |
+        #     console.log("Check Version Output: ${{ steps.check_version.outputs.result }}");
 
       - name: Create Release
         if: steps.check_version.outputs.result == 'true'
