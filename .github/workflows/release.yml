@@ -79,7 +79,7 @@ jobs:
         run: |
           ls -la ./chrome/dist/
           echo "---"
-          ls -la ./chrome/dist/
+          ls -la ./chrome/dist/src
 
       - name: Create Release
         id: create_release
