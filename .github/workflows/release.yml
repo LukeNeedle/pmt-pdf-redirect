@@ -46,16 +46,24 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const versionFile = fs.readFileSync('version.txt', 'utf8');
-            const version = versionFile.trim();
+            const version = fs.readFileSync('version.txt', 'utf8').trim();
             const releases = await github.rest.repos.listReleases({
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
+
+            if (releases.data.length ===  0) {
+              return {
+                result: true,
+                version: version
+              };
+            }
+            
             const latestRelease = releases.data[0];
             if (latestRelease.tag_name === version) {
               return false;
             }
+
             return {
               result: true,
               version: version
